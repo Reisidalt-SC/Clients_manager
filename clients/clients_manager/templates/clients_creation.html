@@ -1,0 +1,103 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'clients_manager/css/clients_creation.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <title>Client Creation</title>
+  </head>
+  
+  <body {% if error_message %}data-error-message="{{ error_message }}"{% endif %}>
+    
+    <header class="header">
+        <i class="bi bi-gem"></i>
+        <div class="user_info">
+            <p><strong>User:</strong> {{ request.user.username }}</p>
+        </div>
+        <div class="header_buttons">
+            <a href="{% url 'finished_clients' %}" class="btn btn-primary">Finished Clients</a> 
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <form action="{% url 'client_creation' %}" method="post" class="form"> {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" placeholder="Client Name">
+            <br>
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" class="form-control" placeholder="Client E-mail">
+            <br>
+            <label for="tel">Tel:</label>
+            <input type="tel" name="tel" class="form-control" placeholder="Client Telephone">
+            <br>
+            <label for="city">City:</label>
+            <input type="text" name="city" class="form-control" placeholder="Client City">
+            <br>
+            <label for="packet">Packet:</label>
+            <select name="packet" id="packet" class="form-select">
+                    <option value="">Select a packet</option>
+                    <option value="basic">Basic</option>
+                    <option value="premium">Advanced</option>
+                    <option value="enterprise">Premium</option>
+                    <option value="enterprise">Ultra</option>
+                </select>
+            <br>
+            <label for="message">Message</label>
+            <textarea name="message" id="message" rows="5" placeholder="Client Message"></textarea>
+            <br>
+            <button type="submit" value="client_creation" >Create Client</button>
+        </form>
+
+        <hr>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                    <th>Tel</th>
+                    <th>City</th>
+                    <th>Packet</th>
+                    <th>Message</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                    <th>End Service</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <form id="registerForm"  action="{% url 'client_update' client.id %}" method="post">{% csrf_token %}
+                    <tr>
+                        <td data-label="Name"><input type="text" name="name" class="form-control" value="{{ client.name }}"></td>
+                        <td data-label="E-mail"><input type="email" name="email" class="form-control" value="{{ client.email }}"></td>
+                        <td data-label="Tel"><input type="tel" name="tel" class="form-control" value="{{ client.tel }}"></td>
+                        <td data-label="City"><input type="text" name="city" class="form-control" value="{{ client.city }}"></td>
+                        <td data-label="Packet">
+                            <select name="packet" class="form-select">
+                                <option value="">Select a packet</option>
+                                <option value="basic" {% if client.packet == 'basic' %}selected{% endif %}>Basic</option>
+                                <option value="advanced" {% if client.packet == 'advanced' %}selected{% endif %}>Advanced</option>
+                                <option value="premium" {% if client.packet == 'premium' %}selected{% endif %}>Premium</option>
+                                <option value="ultra" {% if client.packet == 'ultra' %}selected{% endif %}>Ultra</option>s
+                            </select>
+                        </td>
+                        <td data-label="Message"><input type="text" name="message" class="form-control" value="{{ client.message }}"></td>
+                        <td data-label="Delete"><a href="{% url 'client_delete' client.id %}" class="btn btn-danger">Delete</a></td>
+                        <td data-label="Update"><button type="submit" class="btn btn-primary">Update</button></td>
+                        <td data-label="Finish"><a href="{% url 'client_finish' client.id %}" class="btn btn-info">Finish</a></td>
+                    </tr>
+                </form>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+
+    </div>
+    <script src="{% static 'clients_manager/js/clients_creation.js' %}"></script>
+  </body>
+</html>

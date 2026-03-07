@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: black;  
+}
+
+.header {
+    padding: 20px 40px ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #101828;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 1;
+}
+
+.header i {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e7000b;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.header_buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 10vh;
+    
+}
+
+
+.table input,
+.table select,
+.table textarea {
+    width: 100%;
+    min-width: 120px;
+    font-size: 0.9em;
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #333333;
+    color: #aaaaaa;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.table input:focus,
+.table select:focus,
+.table textarea:focus {
+    outline: none;              
+    border-color: #e7000b;      
+    box-shadow: 0 0 5px rgba(231,0,11,0.5); 
+    background-color: #222222; 
+    color: #ffffff;             
+}
+
+
+@media (min-width: 769px) {
+    .table th, .table td {
+        padding: 10px 12px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .table thead {
+        display: none; 
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #e7000b;
+        border-radius: 10px;
+        padding: 10px;
+        color: whitesmoke;
+        background: transparent;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 10px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table td:last-child {
+        border-bottom: 0;
+    }
+
+    .table td::before {
+        content: attr(data-label); 
+        font-weight: bold;
+        flex-basis: 40%;
+    }
+
+
+    .table a.btn,
+    .table button.btn {
+        width: 48%;
+        margin-top: 5px;
+    }
+}
+
+
+@media (min-width: 769px) {
+    .table {
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid gray;
+        background: transparent;
+        backdrop-filter: blur(10px);
+        color: whitesmoke;
+    }
+}

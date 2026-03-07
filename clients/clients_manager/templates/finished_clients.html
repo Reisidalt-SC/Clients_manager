@@ -1,0 +1,50 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'clients_manager/css/finished_clients.css' %}">
+    <title>Finished Clients</title>
+  </head>
+  
+  <body>
+    <header class="header">
+            <i class="bi bi-gem"></i>
+            <div class="header_buttons">
+                <a href="{% url 'client_creation' %}" class="btn btn-primary">Clients Creation</a> 
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </header>
+        <div class="table-container">
+            <table class="table">
+                {% for finished_client in finished_clients %}
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Tel</th>
+                        <th>City</th>
+                        <th>Packet</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ finished_client.name }}</td>
+                        <td>{{ finished_client.email }}</td>
+                        <td>{{ finished_client.tel }}</td>
+                        <td>{{ finished_client.city }}</td>
+                        <td>{{ finished_client.packet }}</td>
+                        <td>{{ finished_client.message }}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+                
+            </table>
+        </div>
+  </body>
+</html>
