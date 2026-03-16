@@ -1,3 +1,5 @@
+![Dashboard](./screenshots/c1.png)
+
 # Clients Manager
 
 Study project for a simple client management system built with Django.
